@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  data-book-elasticsearch:
+    image: elasticsearch:8.18.0
+    container_name: library_book_elasticsearch
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      - xpack.security.enrollment.enabled=false
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - es-network
+    ulimits:
+      memlock:
+        hard: -1
+        soft: -1
+volumes:
+  es_data:
+    driver: local
+
+networks:
+  es-network:
+    driver: bridge

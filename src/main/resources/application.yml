@@ -15,7 +15,12 @@ spring:
     username: sa
     password:
     drive-class-name: org.h2.Driver
+  elasticsearch:
+      uris: "http://localhost:9200"
 
 logging:
   level:
     root: INFO
+
+open-library:
+  url: "https://openlibrary.org"
