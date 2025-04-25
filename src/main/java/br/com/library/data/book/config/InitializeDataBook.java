@@ -1,8 +1,9 @@
 package br.com.library.data.book.config;
 
 
+import br.com.library.data.book.client.GenreEnum;
 import br.com.library.data.book.client.OpenLibraryClient;
-import br.com.library.data.book.service.BooksService;
+import br.com.library.data.book.service.IBooksService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,27 +11,29 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.Random;
-
 @Component
 public class InitializeDataBook implements ApplicationRunner {
     private static final Logger log = LoggerFactory.getLogger(InitializeDataBook.class);
 
     private final OpenLibraryClient openLibraryClient;
 
+    private final IBooksService bookService;
+
     @Autowired
-    public InitializeDataBook(OpenLibraryClient openLibraryClient) {
+    public InitializeDataBook(OpenLibraryClient openLibraryClient, IBooksService bookService) {
         this.openLibraryClient = openLibraryClient;
+        this.bookService = bookService;
     }
 
     void InitializeDataElasticSearch(){
-        var tst = openLibraryClient.getAllBooks();
-        log.info("return books: {{}} {{}}", tst.getBooks().get(0).getBook().getAuthorsNames(), GenreEnum.RANDON.generateAleatoryGenre());
+        log.info("Data sync Open Library Api start");
+        var booksResponse = openLibraryClient.getAllBooks();
+        bookService.saveAll(booksResponse.buildBooksDTO());
+        log.info("Data sync Open Library Api finish");
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        log.info(" teste executation");
         InitializeDataElasticSearch();
     }
 }
