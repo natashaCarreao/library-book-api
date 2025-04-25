@@ -1,0 +1,26 @@
+server:
+  servlet:
+    context-path: /library-book/api
+  port: 8080
+spring:
+  application:
+   name: data-book-api
+  multipart:
+    enabled: false
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password:
+    drive-class-name: org.h2.Driver
+  elasticsearch:
+      uris: "http://localhost:9200"
+
+logging:
+  level:
+    root: INFO
+
+open-library:
+  url: "https://openlibrary.org"
