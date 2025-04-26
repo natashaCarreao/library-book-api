@@ -1,4 +1,4 @@
-package br.com.library.data.book.document;
+package br.com.library.infra.model.document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
-//@Document(indexName = "author")
 public class AuthorDocument {
 
     public AuthorDocument(String name) {

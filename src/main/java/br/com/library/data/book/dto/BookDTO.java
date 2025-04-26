@@ -1,20 +1,30 @@
 package br.com.library.data.book.dto;
 
+import br.com.library.infra.model.document.AuthorDocument;
+import br.com.library.infra.model.document.BookDocument;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class BookDTO {
 
 
-    public BookDTO(String title,List<String> authors, String genre, Integer yearRelease, Integer numberPages) {
+    public BookDTO(String id, String title,List<String> authors, String genre, Integer yearRelease, Integer numberPages, LocalDateTime createdAt) {
+        this.id = id;
         this.title = title;
         this.authors = authors;
         this.genre = genre;
         this.yearRelease = yearRelease;
         this.numberPages = numberPages;
+        this.createdAt = createdAt;
     }
 
-    private UUID id;
+    public BookDTO(){};
+
+    private String id;
 
     private String title;
     private List<String> authors;
@@ -27,7 +37,9 @@ public class BookDTO {
 
     private Integer numberPages;
 
-    public UUID getId() {
+    private LocalDateTime createdAt;
+
+    public String getId() {
         return id;
     }
 
@@ -71,7 +83,28 @@ public class BookDTO {
         this.numberPages = numberPages;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public static List<BookDTO> BooksDocumentToBooksDto(Iterable<BookDocument> books) {
+        List<BookDTO> bookDTOS = new ArrayList<>();
+        books.iterator().forEachRemaining ((l) -> bookDTOS.add(new BookDTO(l.getId(),
+                l.getTitle(),
+                l.getAuthors().stream().map(
+                        AuthorDocument::getName
+                ).collect(Collectors.toList()),
+                l.getGenre(),l.getYearRelease(),
+                l.getNumberPages(),
+                l.getCreatedAt())));
+
+        return bookDTOS;
+
+    }
 }
 
 

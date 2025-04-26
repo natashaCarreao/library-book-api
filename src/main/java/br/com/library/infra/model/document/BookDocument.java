@@ -1,7 +1,6 @@
-package br.com.library.data.book.document;
+package br.com.library.infra.model.document;
 
 import br.com.library.data.book.dto.BookDTO;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -10,7 +9,6 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import javax.annotation.Nonnull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -18,8 +16,7 @@ import java.util.stream.Collectors;
 @Document(indexName = "book")
 public class BookDocument {
 
-    public BookDocument(String title, String isb, String genre, Integer yearRelease, Integer numberPages,
-                        @Nonnull List<AuthorDocument> authors) {
+    public BookDocument(String title, String genre, Integer yearRelease, Integer numberPages, @Nonnull List<AuthorDocument> authors) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.genre = genre;
@@ -56,12 +53,11 @@ public class BookDocument {
 
     //@JsonProperty("created_at")
     @Field(type = FieldType.Date, format = { }, pattern = "yyyy-MM-dd'T'HH:mm:ss", name = "created_at")
-    private String createdAt;
+    private LocalDateTime createdAt;
 
     @Field(type = FieldType.Date, format = { }, pattern = "yyyy-MM-dd'T'HH:mm:ss", name = "updated_at")
     private LocalDate updatedAt;
 
-    @Nonnull
     private List<AuthorDocument> authors;
 
     public String getId() {
@@ -112,11 +108,11 @@ public class BookDocument {
         this.authors = authors;
     }
 
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

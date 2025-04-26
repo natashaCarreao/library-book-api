@@ -1,18 +1,17 @@
 package br.com.library.data.book.service;
 
-import br.com.library.data.book.document.AuthorDocument;
-import br.com.library.data.book.document.BookDocument;
 import br.com.library.data.book.dto.BookDTO;
 import br.com.library.data.book.repository.BookRepository;
+import br.com.library.infra.model.document.AuthorDocument;
+import br.com.library.infra.model.document.BookDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,12 +26,10 @@ public class BooksService implements IBooksService {
 
     @Override
     public void saveAll(List<BookDTO> booksToInsert) {
-        var booksSaved = bookRepository.saveAll(booksToInsert.stream().map(
+       bookRepository.saveAll(booksToInsert.stream().map(
                 book -> {
                     var bookDocument =  new BookDocument(book);
-                    bookDocument.setCreatedAt(LocalDateTime.now().format(
-                            DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")
-                    ));
+                    bookDocument.setCreatedAt(LocalDateTime.now());
                     return bookDocument;
                 }
         ).collect(Collectors.toList()));
@@ -42,21 +39,48 @@ public class BooksService implements IBooksService {
 
     @Override
     public List<BookDTO> getAll() {
-        List<BookDTO> allBooks = new ArrayList<>();
 
-        var listAllBook = bookRepository.findAll();
-        listAllBook.iterator().forEachRemaining (
-                (l) -> allBooks.add(
-                        new BookDTO(
-                                l.getTitle(), l.getAuthors().stream().map(
-                                        AuthorDocument::getName
-                                ).collect(Collectors.toList()),l.getGenre(),l.getYearRelease(), l.getNumberPages()
-                        )
-                ));
+        var allBooks = BookDTO.BooksDocumentToBooksDto(bookRepository.findAll());
+        log.info("Total {{}} books found", allBooks.size());
 
         return allBooks;
     }
-    
+    @Override
+    public BookDTO getById(String id) {
+        var bookDocument = bookRepository.findById(UUID.fromString(id));
+        if(bookDocument.isEmpty()){
+            return new BookDTO();
+        }
+        log.info("Book found with id: {{}}", id);
+
+        return new BookDTO(
+                bookDocument.get().getId(),
+                bookDocument.get().getTitle(),
+                bookDocument.get().getAuthors().stream().map(AuthorDocument::getName).toList(),
+                bookDocument.get().getGenre(),
+                bookDocument.get().getYearRelease(),
+                bookDocument.get().getNumberPages(),
+                bookDocument.get().getCreatedAt());
+    }
+
+    @Override
+    public List<BookDTO> getByGenre(String genre) {
+
+        var booksByGenre = BookDTO.BooksDocumentToBooksDto(bookRepository.findByGenre(genre));
+        log.info("Total {{}} books found by genre {{}}", booksByGenre.size(), genre);
+
+        return booksByGenre;
+    }
+
+    @Override
+    public List<BookDTO> getByAuthor(String authorName) {
+
+        var booksByAuthor = BookDTO.BooksDocumentToBooksDto(bookRepository.findByAuthorsName(authorName));
+        log.info("Total {{}} books found by author name {{}}", booksByAuthor.size(), authorName);
+
+        return booksByAuthor;
+    }
+
     @Override
     public void delete() {
         bookRepository.deleteAll();

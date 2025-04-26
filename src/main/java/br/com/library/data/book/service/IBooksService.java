@@ -9,5 +9,10 @@ public interface IBooksService {
     void saveAll(List<BookDTO> booksToSave);
     List<BookDTO> getAll();
 
+    BookDTO getById(String id);
+
+    List<BookDTO> getByGenre(String genre);
+
+    List<BookDTO> getByAuthor(String authorName);
     void delete();
 }

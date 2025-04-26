@@ -54,10 +54,17 @@ public class OpenLibraryResponse {
     }
 
     public List<BookDTO> buildBooksDTO(){
-        return this.books.stream().map(wBook ->
-            new BookDTO(wBook.getBook().getTitle(), wBook.getBook().getAuthorsNames(),
-                    GenreEnum.generateAleatoryGenre(),
-                    wBook.getBook().getYearOfRelease(), new Random().nextInt(RANDOM_PAGES))
-        ).collect(Collectors.toList());
+        return this.books.stream().map(wBook ->{
+
+            var bookDTO = new BookDTO();
+
+            bookDTO.setTitle(wBook.getBook().getTitle());
+            bookDTO.setAuthors(wBook.getBook().getAuthorsNames());
+            bookDTO.setGenre(GenreEnum.generateAleatoryGenre());
+            bookDTO.setYearRelease(wBook.getBook().getYearOfRelease());
+            bookDTO.setNumberPages(new Random().nextInt(RANDOM_PAGES));
+
+            return bookDTO;
+        }).collect(Collectors.toList());
     }
 }
