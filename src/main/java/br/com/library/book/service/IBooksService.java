@@ -5,8 +5,6 @@ import br.com.library.book.dto.BookDTO;
 import java.util.List;
 
 public interface IBooksService {
-
-    void saveAll(List<BookDTO> booksToSave);
     List<BookDTO> getAll();
 
     BookDTO getById(String id);

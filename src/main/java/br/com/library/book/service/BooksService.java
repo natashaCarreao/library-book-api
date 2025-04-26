@@ -20,21 +20,8 @@ public class BooksService implements IBooksService {
     private final BookRepository bookRepository;
 
     @Autowired
-    public BooksService(BookRepository  bookRepository) {
+    BooksService(BookRepository  bookRepository) {
         this.bookRepository = bookRepository;
-    }
-
-    @Override
-    public void saveAll(List<BookDTO> booksToInsert) {
-       bookRepository.saveAll(booksToInsert.stream().map(
-                book -> {
-                    var bookDocument =  new BookDocument(book);
-                    bookDocument.setCreatedAt(LocalDateTime.now());
-                    return bookDocument;
-                }
-        ).collect(Collectors.toList()));
-
-        log.info("Save all books success full");
     }
 
     @Override

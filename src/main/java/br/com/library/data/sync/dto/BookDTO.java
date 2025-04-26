@@ -1,4 +1,4 @@
-package br.com.library.book.dto;
+package br.com.library.data.sync.dto;
 
 import br.com.library.infra.model.document.AuthorDocument;
 import br.com.library.infra.model.document.BookDocument;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class BookDTO {
 
 
-    public BookDTO(String id, String title,List<String> authors, String genre, Integer yearRelease, Integer numberPages, LocalDateTime createdAt) {
+    public BookDTO(String id, String title, List<String> authors, String genre, Integer yearRelease, Integer numberPages, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.authors = authors;
@@ -90,19 +90,13 @@ public class BookDTO {
         this.createdAt = createdAt;
     }
 
-    public static List<BookDTO> BooksDocumentToBooksDto(Iterable<BookDocument> books) {
-        List<BookDTO> bookDTOS = new ArrayList<>();
-        books.iterator().forEachRemaining (bookDto -> bookDTOS.add(new BookDTO(bookDto.getId(),
-                bookDto.getTitle(),
-                bookDto.getAuthors().stream().map(
-                        AuthorDocument::getName
-                ).collect(Collectors.toList()),
-                bookDto.getGenre(),bookDto.getYearRelease(),
-                bookDto.getNumberPages(),
-                bookDto.getCreatedAt())));
-
-        return bookDTOS;
-
+    public BookDocument bookDocumentToBooDTO(){
+        return new BookDocument(
+                this.title,
+                this.genre,
+                this.yearRelease,
+                this.numberPages,
+                this.authors.stream().map(AuthorDocument::new).collect(Collectors.toList()));
     }
 }
 
