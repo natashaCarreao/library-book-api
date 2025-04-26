@@ -4,7 +4,6 @@ import br.com.library.infra.model.document.AuthorDocument;
 import br.com.library.infra.model.document.BookDocument;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

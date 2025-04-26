@@ -1,18 +1,15 @@
 package br.com.library.book.service;
 
-import br.com.library.book.repository.BookRepository;
 import br.com.library.book.dto.BookDTO;
+import br.com.library.book.repository.BookRepository;
 import br.com.library.infra.model.document.AuthorDocument;
-import br.com.library.infra.model.document.BookDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class BooksService implements IBooksService {

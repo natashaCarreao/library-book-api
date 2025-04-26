@@ -2,7 +2,6 @@ package br.com.library.data.sync.initialize;
 
 
 import br.com.library.data.sync.client.OpenLibraryClient;
-import br.com.library.book.service.IBooksService;
 import br.com.library.data.sync.service.SyncBookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
