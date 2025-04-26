@@ -1,4 +1,4 @@
-package br.com.library.book.config;
+package br.com.library.data.sinc.config;
 
 
 import br.com.library.book.client.OpenLibraryClient;

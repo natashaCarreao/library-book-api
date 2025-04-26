@@ -1,4 +1,4 @@
-package br.com.library.book.client;
+package br.com.library.data.sync.client;
 
 
 import br.com.library.book.dto.BookDTO;
