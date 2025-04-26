@@ -1,6 +1,6 @@
 package br.com.library.infra.model.document;
 
-import br.com.library.data.book.dto.BookDTO;
+import br.com.library.book.dto.BookDTO;
 import jakarta.persistence.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;

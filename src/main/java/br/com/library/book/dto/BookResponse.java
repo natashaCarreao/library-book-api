@@ -1,10 +1,9 @@
-package br.com.library.data.book.dto;
+package br.com.library.book.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 public class BookResponse {
 

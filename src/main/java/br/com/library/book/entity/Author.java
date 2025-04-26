@@ -1,4 +1,4 @@
-package br.com.library.data.book.entity;
+package br.com.library.book.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

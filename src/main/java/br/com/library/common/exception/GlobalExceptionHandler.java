@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.InvalidParameterException;
 
@@ -20,6 +21,7 @@ public class GlobalExceptionHandler {
     private  static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(Exception.class)
+    @ResponseBody
     public ResponseEntity<ErrorResponse> handleGenericThrowable(final Exception ex, final HttpServletRequest request) {
 
         log.error(ErrorsMessagesConstants.MSG_GENERIC_ERROR, ex);
@@ -29,6 +31,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({FeignException.class, FeignException.Unauthorized.class, MissingRequestHeaderException.class})
+    @ResponseBody
     public ResponseEntity<ErrorResponse> feignUnauthorizedException(Exception ex, HttpServletRequest request) {
 
         log.error(ErrorsMessagesConstants.MSG_INTEGRATION_EXTERNAL_API, ex);
@@ -38,6 +41,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(InvalidParameterException.class)
+    @ResponseBody
     public ResponseEntity<ErrorResponse> invalidParameterException(InvalidParameterException ex, HttpServletRequest request) {
 
         log.error(ErrorsMessagesConstants.MSG_INVALID_PARAMETERS, ex);

@@ -1,4 +1,4 @@
-package br.com.library.data.book.repository;
+package br.com.library.book.repository;
 
 import br.com.library.infra.model.document.BookDocument;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

@@ -1,7 +1,7 @@
-package br.com.library.data.book.service;
+package br.com.library.book.service;
 
-import br.com.library.data.book.dto.BookDTO;
-import br.com.library.data.book.repository.BookRepository;
+import br.com.library.book.repository.BookRepository;
+import br.com.library.book.dto.BookDTO;
 import br.com.library.infra.model.document.AuthorDocument;
 import br.com.library.infra.model.document.BookDocument;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package br.com.library.data.book.dto;
+package br.com.library.book.dto;
 
 import br.com.library.infra.model.document.AuthorDocument;
 import br.com.library.infra.model.document.BookDocument;
@@ -6,7 +6,6 @@ import br.com.library.infra.model.document.BookDocument;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class BookDTO {

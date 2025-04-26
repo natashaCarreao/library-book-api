@@ -1,9 +1,8 @@
-package br.com.library.data.book.config;
+package br.com.library.book.config;
 
 
-import br.com.library.data.book.client.GenreEnum;
-import br.com.library.data.book.client.OpenLibraryClient;
-import br.com.library.data.book.service.IBooksService;
+import br.com.library.book.client.OpenLibraryClient;
+import br.com.library.book.service.IBooksService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

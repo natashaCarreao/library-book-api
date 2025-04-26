@@ -1,4 +1,4 @@
-package br.com.library.data.book.client;
+package br.com.library.book.client;
 
 import java.util.Random;
 

@@ -1,6 +1,6 @@
-package br.com.library.data.book.service;
+package br.com.library.book.service;
 
-import br.com.library.data.book.dto.BookDTO;
+import br.com.library.book.dto.BookDTO;
 
 import java.util.List;
 
