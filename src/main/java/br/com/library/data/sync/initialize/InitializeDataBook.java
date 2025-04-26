@@ -1,8 +1,9 @@
-package br.com.library.data.sinc.config;
+package br.com.library.data.sync.initialize;
 
 
-import br.com.library.book.client.OpenLibraryClient;
+import br.com.library.data.sync.client.OpenLibraryClient;
 import br.com.library.book.service.IBooksService;
+import br.com.library.data.sync.service.SyncBookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,10 @@ public class InitializeDataBook implements ApplicationRunner {
 
     private final OpenLibraryClient openLibraryClient;
 
-    private final IBooksService bookService;
+    private final SyncBookService bookService;
 
     @Autowired
-    public InitializeDataBook(OpenLibraryClient openLibraryClient, IBooksService bookService) {
+    public InitializeDataBook(OpenLibraryClient openLibraryClient, SyncBookService bookService) {
         this.openLibraryClient = openLibraryClient;
         this.bookService = bookService;
     }

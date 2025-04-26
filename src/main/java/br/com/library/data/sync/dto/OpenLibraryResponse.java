@@ -1,7 +1,6 @@
-package br.com.library.data.sync.client;
+package br.com.library.data.sync.dto;
 
 
-import br.com.library.book.dto.BookDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;

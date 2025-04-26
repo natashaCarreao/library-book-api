@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
-@Repository
+@Repository("book_repository")
 public interface BookRepository extends ElasticsearchRepository<BookDocument, UUID> {
 
     Iterable<BookDocument> findByGenre(String genre);

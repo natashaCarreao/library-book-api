@@ -1,5 +1,6 @@
-package br.com.library.data.sync.client;
+package br.com.library.data.sync.dto;
 
+import br.com.library.data.sync.dto.BookResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BookWorkResponse {

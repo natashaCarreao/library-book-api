@@ -1,4 +1,4 @@
-package br.com.library.data.sync.client;
+package br.com.library.data.sync.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
