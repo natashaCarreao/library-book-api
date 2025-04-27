@@ -17,6 +17,9 @@ spring:
     drive-class-name: org.h2.Driver
   elasticsearch:
       uris: "http://localhost:9200"
+  redis:
+    host: localhost
+    port: 6379
 
 logging:
   level:
