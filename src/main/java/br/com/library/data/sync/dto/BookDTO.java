@@ -89,7 +89,7 @@ public class BookDTO {
         this.createdAt = createdAt;
     }
 
-    public BookDocument bookDocumentToBooDTO(){
+    public BookDocument buildBookDocument(){
         return new BookDocument(
                 this.title,
                 this.genre,

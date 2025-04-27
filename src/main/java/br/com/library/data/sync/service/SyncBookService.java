@@ -23,7 +23,7 @@ public class SyncBookService {
     }
 
     public void saveAll(List<BookDTO> booksToInsert) {
-        bookRepository.saveAll(booksToInsert.stream().map(BookDTO::bookDocumentToBooDTO).collect(Collectors.toList()));
+        bookRepository.saveAll(booksToInsert.stream().map(BookDTO::buildBookDocument).collect(Collectors.toList()));
         log.info("Save all books success full");
     }
 }

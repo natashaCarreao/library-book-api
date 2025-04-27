@@ -19,6 +19,10 @@ public class BookResponse {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public List<String> getAuthorsNames() {
         return authorsNames;
     }

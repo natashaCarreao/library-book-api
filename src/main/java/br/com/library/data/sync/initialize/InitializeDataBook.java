@@ -24,7 +24,7 @@ public class InitializeDataBook implements ApplicationRunner {
         this.bookService = bookService;
     }
 
-    void InitializeDataElasticSearch(){
+    public void InitializeDataElasticSearch() throws Exception{
         log.info("Data sync Open Library Api start");
         var booksResponse = openLibraryClient.getAllBooks();
         bookService.saveAll(booksResponse.buildBooksDTO());

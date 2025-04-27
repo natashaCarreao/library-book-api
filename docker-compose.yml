@@ -21,6 +21,12 @@ services:
       memlock:
         hard: -1
         soft: -1
+  data-book-redis:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - es-network
 volumes:
   es_data:
     driver: local
