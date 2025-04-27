@@ -13,7 +13,9 @@ import java.util.UUID;
 
 @Service
 public class BooksService implements IBooksService {
+
     private  static final Logger log = LoggerFactory.getLogger(BooksService.class);
+
     private final BookRepository bookRepository;
 
     @Autowired

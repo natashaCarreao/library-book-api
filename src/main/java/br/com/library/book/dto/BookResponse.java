@@ -8,7 +8,9 @@ import java.util.List;
 public class BookResponse {
 
     private String id;
+
     private String title;
+
     private String genre;
 
     private List<String> authors;

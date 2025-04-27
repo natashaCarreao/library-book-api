@@ -25,10 +25,10 @@ public class BookDTO {
     private String id;
 
     private String title;
+
     private List<String> authors;
 
     private String genre;
-
 
     private Integer yearRelease;
 
