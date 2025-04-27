@@ -22,9 +22,11 @@ services:
         hard: -1
         soft: -1
   data-book-redis:
-    image: 'bitnami/redis:latest'
+    image: 'redis:latest'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
     networks:
       - es-network
 volumes:
