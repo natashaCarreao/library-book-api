@@ -22,9 +22,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public ResponseEntity<ErrorResponse> handleGenericThrowable(final Exception ex, final HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleGenericThrowable (final Exception ex, final HttpServletRequest request) {
 
-        log.error(ErrorsMessagesConstants.MSG_GENERIC_ERROR, ex);
+        log.error(ex.getMessage(), ex);
 
         return ResponseEntity.internalServerError().body(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 ex.getMessage(), System.currentTimeMillis(), request.getRequestURI()));

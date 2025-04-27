@@ -22,7 +22,7 @@ public class BooksService implements IBooksService {
     }
 
     @Override
-    public List<BookDTO> getAll() {
+    public List<BookDTO> getAll() throws Exception {
 
         var allBooks = BookDTO.BooksDocumentToBooksDto(bookRepository.findAll());
         log.info("Total {{}} books found", allBooks.size());
@@ -30,7 +30,7 @@ public class BooksService implements IBooksService {
         return allBooks;
     }
     @Override
-    public BookDTO getById(String id) {
+    public BookDTO getById(String id) throws Exception {
         var bookDocument = bookRepository.findById(UUID.fromString(id));
         if(bookDocument.isEmpty()){
             return new BookDTO();
@@ -48,7 +48,7 @@ public class BooksService implements IBooksService {
     }
 
     @Override
-    public List<BookDTO> getByGenre(String genre) {
+    public List<BookDTO> getByGenre(String genre) throws Exception {
 
         var booksByGenre = BookDTO.BooksDocumentToBooksDto(bookRepository.findByGenre(genre));
         log.info("Total {{}} books found by genre {{}}", booksByGenre.size(), genre);
@@ -57,7 +57,7 @@ public class BooksService implements IBooksService {
     }
 
     @Override
-    public List<BookDTO> getByAuthor(String authorName) {
+    public List<BookDTO> getByAuthor(String authorName) throws Exception {
 
         var booksByAuthor = BookDTO.BooksDocumentToBooksDto(bookRepository.findByAuthorsName(authorName));
         log.info("Total {{}} books found by author name {{}}", booksByAuthor.size(), authorName);

@@ -24,13 +24,13 @@ public interface IBookController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
             })
     })
-    ResponseEntity<LibraryBookResponse> getAll();
+    ResponseEntity<LibraryBookResponse> getAll() throws Exception;
 
 
     @Operation(description = "Get One Book by id")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Return response with book list",content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = LibraryBookResponse.class))
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = BookResponse.class))
             }),
             @ApiResponse(responseCode = "404", description = "Not Found book", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
@@ -39,7 +39,7 @@ public interface IBookController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
             })
     })
-    ResponseEntity<BookResponse> getByID(String id);
+    ResponseEntity<BookResponse> getByID(String id) throws Exception ;
 
     @Operation(description = "Get all books by gere")
     @ApiResponses({
@@ -50,7 +50,7 @@ public interface IBookController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
             })
     })
-    ResponseEntity<LibraryBookResponse> getByGenre(String genre);
+    ResponseEntity<LibraryBookResponse> getByGenre(String genre) throws Exception;
 
 
     @Operation(description = "Get all books by author name")
@@ -62,6 +62,6 @@ public interface IBookController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
             })
     })
-    ResponseEntity<LibraryBookResponse> getByAuthor(String authorName);
+    ResponseEntity<LibraryBookResponse> getByAuthor(String authorName) throws Exception ;
 
 }

@@ -25,29 +25,29 @@ public class BookController implements IBookController {
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 
-    @GetMapping()
+    @GetMapping
     @ResponseBody
-    public ResponseEntity<LibraryBookResponse> getAll() {
+    public ResponseEntity<LibraryBookResponse> getAll() throws Exception {
         return new ResponseEntity<>(new LibraryBookResponse(BookResponse.booksDTOToBooksResponse(bookService.getAll())),
                 HttpStatus.OK);
     }
 
     @GetMapping("{id}")
     @ResponseBody
-    public ResponseEntity<BookResponse> getByID(@PathVariable(name = "id") String id) {
+    public ResponseEntity<BookResponse> getByID(@PathVariable(name = "id") String id) throws Exception  {
         return new ResponseEntity<>(BookResponse.bookDTOToBookResponse(bookService.getById(id)), HttpStatus.OK);
     }
 
     @GetMapping("genre/{genre}")
     @ResponseBody
-    public ResponseEntity<LibraryBookResponse> getByGenre(@PathVariable(name = "genre") String genre) {
+    public ResponseEntity<LibraryBookResponse> getByGenre(@PathVariable(name = "genre") String genre) throws Exception {
         return new ResponseEntity<>(new LibraryBookResponse(BookResponse.booksDTOToBooksResponse(bookService.getByGenre(genre))),
                 HttpStatus.OK);
     }
 
     @GetMapping("author/{author_name}")
     @ResponseBody
-    public ResponseEntity<LibraryBookResponse> getByAuthor(@PathVariable(name = "author_name")String authorName) {
+    public ResponseEntity<LibraryBookResponse> getByAuthor(@PathVariable(name = "author_name")String authorName) throws Exception  {
         return new ResponseEntity<>(new LibraryBookResponse(BookResponse.booksDTOToBooksResponse(bookService.getByAuthor(authorName))),
                 HttpStatus.OK);
     }
