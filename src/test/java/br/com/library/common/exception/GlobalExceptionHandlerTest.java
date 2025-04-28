@@ -1,11 +1,14 @@
 package br.com.library.common.exception;
 
+import br.com.library.book.controller.BookController;
 import br.com.library.book.service.BooksService;
+import br.com.library.book.service.CacheService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@WebMvcTest(BookController.class)
 @AutoConfigureMockMvc
 public class GlobalExceptionHandlerTest {
 
@@ -32,12 +35,16 @@ public class GlobalExceptionHandlerTest {
     @MockitoBean
     private BooksService booksService;
 
+    @MockitoBean
+    private CacheService cacheService;
+
     @BeforeEach
     void before(){
         reset(booksService);
+        reset(cacheService);
     }
 
-  /*  @Test
+    @Test
     public void handleGenericThrowable() throws Exception {
 
         when(booksService.getAll()).thenThrow(Exception.class);
@@ -49,5 +56,5 @@ public class GlobalExceptionHandlerTest {
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), responseErr.getResponse().getStatus());
         assertNotNull(responseErr.getResponse().getContentAsString());
-    }*/
+    }
 }

@@ -6,6 +6,7 @@ import br.com.library.infra.model.document.AuthorDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class BooksService implements IBooksService {
         return allBooks;
     }
     @Override
+    @Cacheable(value = "books")
     public BookDTO getById(String id) throws Exception {
         var bookDocument = bookRepository.findById(UUID.fromString(id));
         if(bookDocument.isEmpty()){
@@ -50,6 +52,7 @@ public class BooksService implements IBooksService {
     }
 
     @Override
+    @Cacheable(value = "books", key = "#genre")
     public List<BookDTO> getByGenre(String genre) throws Exception {
 
         var booksByGenre = BookDTO.BooksDocumentToBooksDto(bookRepository.findByGenre(genre));
@@ -59,6 +62,7 @@ public class BooksService implements IBooksService {
     }
 
     @Override
+    @Cacheable(value = "books", key = "#authorName")
     public List<BookDTO> getByAuthor(String authorName) throws Exception {
 
         var booksByAuthor = BookDTO.BooksDocumentToBooksDto(bookRepository.findByAuthorsName(authorName));

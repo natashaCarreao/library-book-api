@@ -3,6 +3,7 @@ package br.com.library.book.controller;
 import br.com.library.book.dto.BookResponse;
 import br.com.library.book.dto.LibraryBookResponse;
 import br.com.library.book.service.IBooksService;
+import br.com.library.book.service.ICacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,12 @@ public class BookController implements IBookController {
 
     private final IBooksService bookService;
 
+    private final ICacheService cacheService;
+
     @Autowired
-    public BookController(IBooksService bookService) {
+    public BookController(IBooksService bookService, ICacheService cacheService) {
         this.bookService = bookService;
+        this.cacheService = cacheService;
     }
 
     @GetMapping("health")
@@ -52,12 +56,15 @@ public class BookController implements IBookController {
                 HttpStatus.OK);
     }
 
-
-    @DeleteMapping("delete-all")
-    @ResponseBody
-    public ResponseEntity<Boolean> deleteAll(){
+    @DeleteMapping
+    public ResponseEntity<Boolean> deleteAll() throws Exception{
         bookService.delete();
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    }
+
+    @GetMapping("recent")
+    public ResponseEntity<String> recentSearches() throws Exception {
+        return new ResponseEntity<>(cacheService.getValue().toString(), HttpStatus.OK);
     }
 }
 

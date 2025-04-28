@@ -2,7 +2,9 @@ package br.com.library.book.controller;
 
 import br.com.library.book.dto.BookDTO;
 import br.com.library.book.service.BooksService;
+import br.com.library.book.service.CacheService;
 import br.com.library.book.service.IBooksService;
+import br.com.library.book.service.ICacheService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -20,7 +22,9 @@ public class BookControllerTest {
 
     private final IBooksService booksService = Mockito.mock(BooksService.class);
 
-    private final IBookController bookController = new BookController(booksService);
+    private final ICacheService cacheService = Mockito.mock(CacheService.class);
+
+    private final IBookController bookController = new BookController(booksService, cacheService);
 
     @BeforeEach
     void before(){

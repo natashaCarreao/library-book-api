@@ -14,35 +14,35 @@ public class ErrorResponse {
         this.origin = origin;
     }
 
-    Integer getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    void setStatus(Integer status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    String getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    void setMessage(String message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
-    Long getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    void setTimestamp(Long timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 
-    String getOrigin() {
+    public String getOrigin() {
         return origin;
     }
 
-    void setOrigin(String origin) {
+    public void setOrigin(String origin) {
         this.origin = origin;
     }
 }

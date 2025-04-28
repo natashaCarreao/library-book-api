@@ -27,3 +27,8 @@ logging:
 
 open-library:
   url: "https://openlibrary.org"
+
+
+cache:
+  ttl:
+    ms: 43200000
