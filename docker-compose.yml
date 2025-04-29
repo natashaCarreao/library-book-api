@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.7"
 
 services:
   data-book-elasticsearch:
@@ -9,14 +9,13 @@ services:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - xpack.security.enabled=false
-      - xpack.security.enrollment.enabled=false
     volumes:
       - es_data:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
     networks:
-      - es-network
+      - local-network
     ulimits:
       memlock:
         hard: -1
@@ -28,11 +27,24 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - es-network
+      - local-network
+  library-book-api:
+    image: docker.io/ntacarreao/library-book-api:0.0.4
+    environment:
+      - TESTHOSTELASTIC=http://data-book-elasticsearch:9200
+    depends_on:
+      - data-book-elasticsearch
+      - data-book-redis
+    ports:
+      - "8080:8080"
+    networks:
+      - local-network
+    links:
+      - data-book-elasticsearch
 volumes:
   es_data:
     driver: local
 
 networks:
-  es-network:
+  local-network:
     driver: bridge
