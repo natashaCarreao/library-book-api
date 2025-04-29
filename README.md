@@ -3,7 +3,7 @@
 ## 1. Definição de arquitetura
 
 
-API Rest para consultas de livros para uma biblioteca. A aplicação permite buscar todos os livros disponiveis, buscar livro por id, livros por genero e nome do autor.
+API Rest desenvolvida em Java 21 para consultas de livros para uma biblioteca. A aplicação permite buscar todos os livros disponiveis, buscar livro por id, livros por genero e nome do autor.
 
 Utiliza as seguintes tecnologias para funcionamento:
     
@@ -57,7 +57,7 @@ http://localhost:8080/library-book/api/swagger-ui/index.html#/
    ```
 
 
-Como o foco desta api para é a busca de livros, os dados estao sendo armazenados em banco de dados NoSQL elasticsearch.
+Como o foco desta api para é a busca de livros, os dados estao sendo armazenados em banco de dados NoSQL Elasticsearch.
 Com isso, tem menos "complexidade/custos" de relacionar Books e Author. 
 
 O Elasticsearch foi escolhido por se tratar de um banco dados que armazena documentos e sua facilicidade em fazer buscas comparados a outros bancos de dados NoSQL documental.
@@ -96,15 +96,15 @@ Atualmente, o cache esta configurado para 12 horas. A cada 12 horas o cache é r
 
 Onde acabei levando muito foi a parte de busca do do cache utilizando o Redis Template. Por se tratar de um banco chave/valor, ele lida muito bem com retornos em string. Porém, tive muitos problemas para transformar o retorno do Cache em objeto. Tentei resolver de diversas formas mas nao consegui o resultado ideal.
 
-Outro ponto que levei muito tempo, foi a comunicação do container de elasticserach com o container da app. A imagem da app esta sendo gerada corretamente no Docker.io, porém não é possivel realizar o start da app, pois não há comunicação entre os dois containers.]
+Outro ponto que levei muito tempo, foi a comunicação do container de elasticserach com o container da app. A imagem da app esta sendo gerada corretamente no Docker.io, porém não é possivel realizar o start da app, pois não há comunicação entre os dois containers.
 Nesse item tentei inúmeras soloções (algumas que eu já conhhecia, como criar uma breagde especifica), e outras pesquisei durante esses ultimos dias.
 
-Os dois pontos acima consumiram mais ou uns 40% do tempo que levei para chegar a esse ponto.
+Os dois pontos acima consumiram mais ou menos uns 40% do tempo que levei para chegar a esse ponto.
 
 
 ## Start App
 
-Para fazer o start da aplicaçao, ter o docker e docker componse instalado na máquina, por é nescessario executar o arquivo docker-compose que esta na raiz do projeto utilizando o comando:
+Para fazer o start da aplicação, ter o docker e docker componse instalado na máquina, por é nescessario executar o arquivo docker-compose que esta na raiz do projeto utilizando o comando:
 
 
 `
@@ -116,3 +116,5 @@ Esse comando instalará as Imagens de Elasticsearch e Redis.
 Para executar aplicação em ambiente local, é necesário executar a classe principal DataBookApiApplication.Java. ou executar pelo terminal, dentro da pasta do projeto o comando:
 
 Para acessar a app utilizar a http://localhost:8080/library-book/api/books
+
+Para verificar os dados salvos no Elasticsearch acesse http://localhost:9200/_search
