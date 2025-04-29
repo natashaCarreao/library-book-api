@@ -56,15 +56,10 @@ public class BookController implements IBookController {
                 HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Boolean> deleteAll() throws Exception{
-        bookService.delete();
-        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-    }
-
     @GetMapping("recent")
+    @ResponseBody
     public ResponseEntity<String> recentSearches() throws Exception {
-        return new ResponseEntity<>(cacheService.getValue().toString(), HttpStatus.OK);
+        return new ResponseEntity<>(cacheService.getValues().toString(), HttpStatus.OK);
     }
 }
 

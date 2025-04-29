@@ -4,11 +4,14 @@ import br.com.library.infra.model.document.AuthorDocument;
 import br.com.library.infra.model.document.BookDocument;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.Date;
+import java.util.Formattable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class BookDTO {
-
 
     public BookDTO(String id, String title, List<String> authors, String genre, Integer yearRelease, Integer numberPages, LocalDateTime createdAt) {
         this.id = id;
@@ -90,13 +93,19 @@ public class BookDTO {
     }
 
     public BookDocument buildBookDocument(){
-        return new BookDocument(
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+         var bookDocument =  new BookDocument(
                 this.title,
                 this.genre,
                 this.yearRelease,
                 this.numberPages,
                 this.authors.stream().map(AuthorDocument::new).collect(Collectors.toList()));
+
+         bookDocument.setCreatedAt(LocalDateTime.now().format(formatter));
+
+        return bookDocument;
     }
+
 }
 
 

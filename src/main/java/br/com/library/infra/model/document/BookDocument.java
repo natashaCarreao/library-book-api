@@ -7,8 +7,10 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.annotation.Nonnull;
+import javax.print.DocFlavor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -23,16 +25,6 @@ public class BookDocument {
         this.yearRelease = yearRelease;
         this.numberPages = numberPages;
         this.authors = authors;
-    }
-
-    public BookDocument(BookDTO bookDTO){
-        this.id = UUID.randomUUID().toString();
-        this.title = bookDTO.getTitle();
-        this.genre = bookDTO.getGenre();
-        this.yearRelease = bookDTO.getYearRelease();
-        this.numberPages = bookDTO.getNumberPages();
-        this.authors = bookDTO.getAuthors().stream()
-                .map(AuthorDocument::new).collect(Collectors.toList());
     }
 
     public BookDocument(){
@@ -51,12 +43,8 @@ public class BookDocument {
     @Field(type = FieldType.Integer, name = "number_pages")
     private Integer numberPages;
 
-    //@JsonProperty("created_at")
     @Field(type = FieldType.Date, format = { }, pattern = "yyyy-MM-dd'T'HH:mm:ss", name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Field(type = FieldType.Date, format = { }, pattern = "yyyy-MM-dd'T'HH:mm:ss", name = "updated_at")
-    private LocalDate updatedAt;
+    private String createdAt;
 
     private List<AuthorDocument> authors;
 
@@ -108,20 +96,12 @@ public class BookDocument {
         this.authors = authors;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public LocalDate getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDate updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     @Override

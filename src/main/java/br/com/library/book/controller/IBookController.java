@@ -64,4 +64,16 @@ public interface IBookController {
     })
     ResponseEntity<LibraryBookResponse> getByAuthor(String authorName) throws Exception ;
 
+
+    @Operation(description = "Get recents all books")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Return response with all books searched in the last twelve hours",content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Unexpected errors during query", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
+            })
+    })
+    ResponseEntity<String> recentSearches() throws Exception;
+
 }

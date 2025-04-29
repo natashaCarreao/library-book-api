@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.9"
 
 services:
   data-book-elasticsearch:
@@ -9,6 +9,7 @@ services:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - xpack.security.enabled=false
+      - xpack.security.enrollment.enabled=false
     volumes:
       - es_data:/usr/share/elasticsearch/data
     ports:
@@ -29,9 +30,9 @@ services:
     networks:
       - local-network
   library-book-api:
-    image: docker.io/ntacarreao/library-book-api:0.0.4
+    image: docker.io/ntacarreao/library-book-api:0.0.8
     environment:
-      - TESTHOSTELASTIC=http://data-book-elasticsearch:9200
+      - HOST_ELASTICSEARCH=http://data-book-elasticsearch:9200
     depends_on:
       - data-book-elasticsearch
       - data-book-redis

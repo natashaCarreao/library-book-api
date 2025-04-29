@@ -1,55 +1,65 @@
 package br.com.library.book.service;
 
-import br.com.library.data.sync.dto.BookDTO;
+import br.com.library.book.dto.BookDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 @Service
 public class CacheService implements ICacheService {
 
-    private  static final Logger log = LoggerFactory.getLogger(BooksService.class);
-    private final StringRedisTemplate redisTemplate;
+    private  static final Logger log = LoggerFactory.getLogger(CacheService.class);
+
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    public CacheService(StringRedisTemplate redisTemplate, CacheManager cacheManager) {
+    public CacheService(RedisTemplate<String,Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
-        this.cacheManager = cacheManager;
     }
 
-    ObjectMapper maper = new ObjectMapper();
-
-    private final CacheManager cacheManager;
-
-    public Object getValue() throws Exception{
-        Cache cache = cacheManager.getCache("books");
-        List<String> recentItems = cache.get("books", List.class);
-
-        /*Set<String> chaves = redisTemplate.keys("*"); // Obter todas as chaves (ou usar um padrão, como "cache:*")
-        Object _valor = new Object();
-        if (!chaves.isEmpty()) {
-            for (String chave : chaves) {
-                var valor = redisTemplate.opsForValue().get(chave); // Obter o valor
-                var list = maper.readValue(valor, new TypeReference<ArrayList<BookDTO>>(){});
+    private final ObjectMapper mapper = new ObjectMapper();
 
 
-                System.out.println("Chave: " + chave + ", Valor: " + list.getFirst());
-            }
+    public List<Object> getValues() throws Exception{
+        Set<String> keys = redisTemplate.keys("books::*");
+        List<Object> values = new ArrayList<>();
+
+        if (keys.isEmpty()) {
+            log.info("Not found books in cache");
+            return values;
         } else {
-            System.out.println("O cache está vazio.");
-        }*/
-        return new Object();
+            for (String keyCache : keys) {
+                redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer(new ObjectMapper()));
+                var valuesInCache = redisTemplate.opsForValue().get(keyCache);
+
+                mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+                mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+                var valuesStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(valuesInCache);
+
+                if (valuesStr.startsWith("{\n" +
+                        "  \"@class\" : \"br.com.library.book.dto.BookDTO\",")){
+
+                    var bookDTO = mapper.readValue(valuesStr, Object.class);
+                    values.add(bookDTO);
+                }else {
+                    values = mapper.readValue(valuesStr, new TypeReference<>() {  });
+                    values.removeFirst();
+                }
+            }
+
+            log.info("Books found in the cache");
+        }
+        return values;
     }
 }

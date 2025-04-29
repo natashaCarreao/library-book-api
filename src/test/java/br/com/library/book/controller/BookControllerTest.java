@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,7 +170,7 @@ public class BookControllerTest {
         bookDTO.setGenre("Terror");
         bookDTO.setNumberPages(3000);
         bookDTO.setYearRelease(mockDate.getYear());
-        bookDTO.setCreatedAt(mockDate);
+        bookDTO.setCreatedAt(mockDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'hh:mm:ss")));
 
         return bookDTO;
     }

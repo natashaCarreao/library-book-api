@@ -3,14 +3,21 @@ package br.com.library.book.service;
 import br.com.library.book.dto.BookDTO;
 import br.com.library.book.repository.BookRepository;
 import br.com.library.infra.model.document.AuthorDocument;
+import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
+
+import static co.elastic.clients.elasticsearch.connector.ConnectorFieldType.Str;
 
 @Service
 public class BooksService implements IBooksService {
@@ -37,7 +44,8 @@ public class BooksService implements IBooksService {
     public BookDTO getById(String id) throws Exception {
         var bookDocument = bookRepository.findById(UUID.fromString(id));
         if(bookDocument.isEmpty()){
-            return new BookDTO();
+            var msg = MessageFormat.format("Book not found by id: {0}", id);
+            throw  new EntityNotFoundException(msg);
         }
         log.info("Book found with id: {{}}", id);
 
@@ -69,10 +77,5 @@ public class BooksService implements IBooksService {
         log.info("Total {{}} books found by author name {{}}", booksByAuthor.size(), authorName);
 
         return booksByAuthor;
-    }
-
-    @Override
-    public void delete() {
-        bookRepository.deleteAll();
     }
 }

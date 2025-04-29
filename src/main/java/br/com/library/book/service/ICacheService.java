@@ -1,5 +1,7 @@
 package br.com.library.book.service;
 
+import java.util.List;
+
 public interface ICacheService {
-    public Object getValue() throws Exception;
+    public List<Object> getValues() throws Exception;
 }
