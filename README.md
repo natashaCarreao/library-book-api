@@ -47,7 +47,7 @@ http://localhost:8080/library-book/api/swagger-ui/index.html#/
    - GET Books by Author Name
      - Busca todos os livros que possuem o nome do autor informado
      ```curl
-       curl --location 'http://localhost:8080/library-book/api/books/genre/HORROR'
+       curl --location 'http://localhost:8080/library-book/api/books/author/Gaddis'
      ```
      
    - Get all books recent
@@ -97,7 +97,7 @@ Atualmente, o cache esta configurado para 12 horas. A cada 12 horas o cache é r
 Onde acabei levando muito foi a parte de busca do do cache utilizando o Redis Template. Por se tratar de um banco chave/valor, ele lida muito bem com retornos em string. Porém, tive muitos problemas para transformar o retorno do Cache em objeto. Tentei resolver de diversas formas mas nao consegui o resultado ideal.
 
 Outro ponto que levei muito tempo, foi a comunicação do container de elasticserach com o container da app. A imagem da app esta sendo gerada corretamente no Docker.io, porém não é possivel realizar o start da app, pois não há comunicação entre os dois containers.
-Nesse item tentei inúmeras soloções (algumas que eu já conhhecia, como criar uma breagde especifica), e outras pesquisei durante esses ultimos dias.
+Nesse item tentei inúmeras soloções (algumas que eu já conhhecia, como criar uma bridge especifica), e outras pesquisei durante esses ultimos dias.
 
 Os dois pontos acima consumiram mais ou menos uns 40% do tempo que levei para chegar a esse ponto.
 
