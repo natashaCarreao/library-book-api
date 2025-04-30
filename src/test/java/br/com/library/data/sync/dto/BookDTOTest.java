@@ -3,7 +3,6 @@ package br.com.library.data.sync.dto;
 import br.com.library.infra.model.document.BookDocument;
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.LinkOption;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 

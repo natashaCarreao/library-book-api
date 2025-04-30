@@ -1,19 +1,13 @@
 package br.com.library.infra.model.document;
 
-import br.com.library.book.dto.BookDTO;
 import jakarta.persistence.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.annotation.Nonnull;
-import javax.print.DocFlavor;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Document(indexName = "book")
 public class BookDocument {

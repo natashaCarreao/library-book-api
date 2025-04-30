@@ -5,9 +5,6 @@ import br.com.library.infra.model.document.BookDocument;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
-import java.util.Formattable;
 import java.util.List;
 import java.util.stream.Collectors;
 
