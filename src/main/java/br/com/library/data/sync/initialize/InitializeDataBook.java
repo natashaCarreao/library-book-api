@@ -1,0 +1,42 @@
+package br.com.library.data.sync.initialize;
+
+
+import br.com.library.data.sync.client.OpenLibraryClient;
+import br.com.library.data.sync.service.SyncBookService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@ConfigurationProperties(prefix = "application")
+public class InitializeDataBook implements ApplicationRunner {
+    private static final Logger log = LoggerFactory.getLogger(InitializeDataBook.class);
+    String tst;
+
+    private final OpenLibraryClient openLibraryClient;
+
+    private final SyncBookService bookService;
+
+    @Autowired
+    public InitializeDataBook(OpenLibraryClient openLibraryClient, SyncBookService bookService) {
+
+        this.openLibraryClient = openLibraryClient;
+        this.bookService = bookService;
+    }
+
+    public void InitializeDataElasticSearch() throws Exception{
+        log.info("Data sync Open Library Api start");
+        var booksResponse = openLibraryClient.getAllBooks();
+        bookService.saveAll(booksResponse.buildBooksDTO());
+        log.info("Data sync Open Library Api finish");
+    }
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        InitializeDataElasticSearch();
+    }
+}
