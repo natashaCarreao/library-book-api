@@ -1,6 +1,5 @@
 package br.com.library.data.sync.initialize;
 
-import br.com.library.DataBookApiApplication;
 import br.com.library.data.sync.client.OpenLibraryClient;
 import br.com.library.data.sync.dto.BookResponse;
 import br.com.library.data.sync.dto.BookWorkResponse;
@@ -9,7 +8,6 @@ import br.com.library.data.sync.service.SyncBookService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.boot.ApplicationArguments;
 
 import java.util.ArrayList;
 import java.util.Arrays;

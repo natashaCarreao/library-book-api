@@ -1,6 +1,5 @@
 package br.com.library.book.service;
 
-import br.com.library.book.dto.BookDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

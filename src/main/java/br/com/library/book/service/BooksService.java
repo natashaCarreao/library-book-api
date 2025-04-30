@@ -11,13 +11,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
-
-import static co.elastic.clients.elasticsearch.connector.ConnectorFieldType.Str;
 
 @Service
 public class BooksService implements IBooksService {
