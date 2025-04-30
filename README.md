@@ -47,7 +47,7 @@ http://localhost:8080/library-book/api/swagger-ui/index.html#/
    - GET Books by Author Name
      - Busca todos os livros que possuem o nome do autor informado
      ```curl
-       curl --location 'http://localhost:8080/library-book/api/books/genre/HORROR'
+       curl --location 'http://localhost:8080/library-book/api/books/author/Gaddis'
      ```
      
    - Get all books recent
