@@ -3,6 +3,7 @@ package br.com.library.common.exception;
 import br.com.library.common.exception.dto.ErrorResponse;
 import br.com.library.common.exception.dto.ErrorsMessagesConstants;
 import feign.FeignException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,5 +50,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(HttpStatus.BAD_REQUEST.value(),
                 ex.getMessage(), System.currentTimeMillis(), request.getRequestURI()));
 
+    }
+
+    @ExceptionHandler({EntityNotFoundException.class})
+    @ResponseBody
+    public ResponseEntity<ErrorResponse> entityNotFoundException (EntityNotFoundException ex, HttpServletRequest request){
+        log.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(), System.currentTimeMillis(), request.getRequestURI()));
     }
 }

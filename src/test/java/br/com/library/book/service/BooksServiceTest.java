@@ -4,17 +4,19 @@ import br.com.library.book.dto.BookDTO;
 import br.com.library.book.repository.BookRepository;
 import br.com.library.infra.model.document.AuthorDocument;
 import br.com.library.infra.model.document.BookDocument;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.security.InvalidParameterException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
@@ -62,6 +64,19 @@ class BooksServiceTest {
         assertEquals(mockBook.getGenre(), book.getGenre());
         assertEquals(mockBook.getNumberPages(), book.getNumberPages());
         assertEquals(mockBook.getYearRelease(), book.getYearRelease());
+
+    }
+
+    @Test
+    void getByIdNotFound() throws Exception {
+
+        var id = UUID.randomUUID();
+        when(bookRepository.findById(id)).thenReturn(Optional.empty());
+
+        var expectedException = assertThrows(EntityNotFoundException.class, () -> booksService.getById(id.toString()));
+
+        var expectedErr = MessageFormat.format("Book not found by id: {0}", id);
+        assertEquals(expectedErr, expectedException.getMessage());
 
     }
 

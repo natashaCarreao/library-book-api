@@ -13,5 +13,5 @@ public interface IBooksService {
     List<BookDTO> getByGenre(String genre) throws Exception ;
 
     List<BookDTO> getByAuthor(String authorName) throws Exception ;
-    void delete();
+
 }

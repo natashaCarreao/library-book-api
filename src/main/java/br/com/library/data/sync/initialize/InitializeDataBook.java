@@ -6,13 +6,18 @@ import br.com.library.data.sync.service.SyncBookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConfigurationProperties(prefix = "application")
 public class InitializeDataBook implements ApplicationRunner {
     private static final Logger log = LoggerFactory.getLogger(InitializeDataBook.class);
+    String tst;
 
     private final OpenLibraryClient openLibraryClient;
 
@@ -20,6 +25,7 @@ public class InitializeDataBook implements ApplicationRunner {
 
     @Autowired
     public InitializeDataBook(OpenLibraryClient openLibraryClient, SyncBookService bookService) {
+
         this.openLibraryClient = openLibraryClient;
         this.bookService = bookService;
     }

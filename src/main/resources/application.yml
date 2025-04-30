@@ -4,19 +4,19 @@ server:
   port: 8080
 spring:
   application:
-   name: data-book-api
+   name: library-book-api
   multipart:
     enabled: false
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    defer-datasource-initialization: true
-  datasource:
-    url: jdbc:h2:mem:mydb
-    username: sa
-    password:
-    drive-class-name: org.h2.Driver
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  data:
+    elasticsearch:
+      repositories:
+        enable: true
   elasticsearch:
-      uris: "http://localhost:9200"
+      uris: ${HOST_ELASTICSEARCH:http://localhost:9200}
   redis:
     host: localhost
     port: 6379
@@ -27,3 +27,7 @@ logging:
 
 open-library:
   url: "https://openlibrary.org"
+
+cache:
+  ttl:
+    ms: 43200000

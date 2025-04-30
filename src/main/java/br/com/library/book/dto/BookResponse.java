@@ -22,10 +22,10 @@ public class BookResponse {
     private Integer numberPages;
 
     @JsonProperty("created_at")
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     public BookResponse(String id, String title, String genre, List<String> authors, Integer yearRelease,
-                        Integer numberPages, LocalDateTime createdAt) {
+                        Integer numberPages, String createdAt) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -83,11 +83,11 @@ public class BookResponse {
         this.numberPages = numberPages;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 

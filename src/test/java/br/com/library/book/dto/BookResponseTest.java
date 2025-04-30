@@ -3,6 +3,7 @@ package br.com.library.book.dto;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,11 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class BookResponseTest {
 
+    private final String dateMock = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'hh:mm:ss"));
+
     @Test
     void newBookResponse() {
 
         var listAuthorsName = new String[]{"John", "Luis"};
-        var dateMock = LocalDateTime.now();
         var bookResponse = new BookResponse("id", "title", "Terror", Arrays.stream(listAuthorsName).toList(),
                 2020, 1000, dateMock);
 
@@ -29,7 +31,6 @@ public class BookResponseTest {
 
 
         listAuthorsName = new String[]{"Luis"};
-        dateMock = LocalDateTime.now();
         bookResponse.setAuthors(Arrays.stream(listAuthorsName).toList());
         bookResponse.setId("_id");
         bookResponse.setTitle("New Title");
